@@ -2,7 +2,6 @@
 # Created by YUYONG on 2022/10/25
 from fastapi.encoders import jsonable_encoder
 from sqlalchemy import text
-from sqlalchemy.orm import Session
 
 from db import SessionLocal
 
