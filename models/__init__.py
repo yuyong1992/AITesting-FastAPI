@@ -72,7 +72,24 @@ class TestReport(Base):
     create_user_id = Column(Integer, ForeignKey('hc_user.id'))
 
 
-class TestCase(Base):
-    __tablename__ = 'hc_test_case'
+class Testcase(Base):
+    __tablename__ = 'hc_testcase'
     id = Column(Integer, primary_key=True, autoincrement='auto')
     name = Column(String, nullable=False)
+    file_name = Column(String, nullable=False)
+    priority = Column(String)
+    tags = Column(String)
+    status = Column(String)
+    steps = Column(String)
+    group_id = Column(Integer, ForeignKey('hc_group.id'))
+
+
+class TestUser(Base):
+    __tablename__ = 'hc_test_user'
+    id = Column(Integer, primary_key=True, autoincrement='auto')
+    username = Column(String, nullable=False)
+    password = Column(String, nullable=False)
+    salt = Column(String)
+    email = Column(String)
+    mobile = Column(String)
+    status = Column(Boolean)

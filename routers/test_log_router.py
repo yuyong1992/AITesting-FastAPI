@@ -24,7 +24,7 @@ def save(item: TestLogCreateSchema):
 
 @router.put('/test_log/{id}', response_model=TestLogSelectSchema)
 def update_by_id(_id: int, item: TestLogUpdateSchema):
-    test_log = crud.updata_by_id(_id=_id, schema_in=item)
+    test_log = crud.update_by_id(_id=_id, schema_in=item)
     return R.ok(data=test_log)
 
 

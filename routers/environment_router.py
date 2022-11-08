@@ -35,7 +35,7 @@ def save(item: EnvironmentCreateSchema):
 
 @router.put('/environment/{id}', response_model=EnvironmentSelectSchema)
 def update(_id: int, item: EnvironmentUpdateSchema):
-    environment = crud.updata_by_id(_id=_id, schema_in=item)
+    environment = crud.update_by_id(_id=_id, schema_in=item)
     return R.ok(data=environment)
 
 

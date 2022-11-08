@@ -55,7 +55,7 @@ class CRUDBase:
             session.refresh(db_obj)
             return db_obj
 
-    def updata_by_id(self, _id, schema_in):
+    def update_by_id(self, _id, schema_in):
         """
         根据id号更新数据
         :param _id:

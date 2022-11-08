@@ -41,7 +41,7 @@ def update_by_id(_id: int, item: ProjectUpdateSchema):
     :param item:
     :return:
     """
-    project = crud.updata_by_id(_id, item)
+    project = crud.update_by_id(_id, item)
     return R.ok(data=project)
 
 

@@ -35,7 +35,7 @@ def update_by_id(_id: int, item: TestReportUpdateSchema):
     :param item: content to update
     :return: test_report
     """
-    test_report = crud.updata_by_id(_id=_id, schema_in=item)
+    test_report = crud.update_by_id(_id=_id, schema_in=item)
     return R.ok(data=test_report)
 
 
