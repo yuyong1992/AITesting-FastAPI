@@ -12,13 +12,14 @@ router = APIRouter(tags=['environment'])
 @router.get('/environment/{id}', response_model=EnvironmentSelectSchema)
 def get_by_id(_id: int):
     environment = crud.get_by_id(_id=_id)
-    return environment
+    return R.ok(data=environment)
 
 
 @router.get('/environment', response_model=EnvironmentSelectSchema)
 def get_by_project_id(_id: int):
     """
     根据project_id查询environment列表
+
     :param _id: project_id
     :return:
     """
@@ -29,16 +30,16 @@ def get_by_project_id(_id: int):
 @router.post('/environment', response_model=EnvironmentSelectSchema)
 def save(item: EnvironmentCreateSchema):
     environment = crud.save(schema_in=item)
-    return environment
+    return R.ok(data=environment)
 
 
 @router.put('/environment/{id}', response_model=EnvironmentSelectSchema)
 def update(_id: int, item: EnvironmentUpdateSchema):
     environment = crud.updata_by_id(_id=_id, schema_in=item)
-    return environment
+    return R.ok(data=environment)
 
 
 @router.delete('/environment/{id}', response_model=EnvironmentSelectSchema)
 def remove_by_id(_id):
     environment = crud.remove_by_id(_id=_id)
-    return environment
+    return R.ok(data=environment)

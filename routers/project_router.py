@@ -5,6 +5,7 @@ from fastapi import APIRouter
 from crud.crud_project import project as crud
 # import crud.crud_project as crud
 from schemas.project_schema import ProjectSelectSchema, ProjectCreateSchema, ProjectUpdateSchema
+from common.r import R
 
 router = APIRouter(tags=['project'])
 
@@ -18,7 +19,7 @@ def get_by_id(_id: int):
     :return: ProjectSelectSchema 格式的数据
     """
     project = crud.get_by_id(_id)
-    return project
+    return R.ok(data=project)
 
 
 @router.post('/project', response_model=ProjectSelectSchema)
@@ -29,7 +30,7 @@ def save(item: ProjectCreateSchema):
     :return:
     """
     project = crud.save(item)
-    return project
+    return R.ok(data=project)
 
 
 @router.put('/project/{id}', response_model=ProjectSelectSchema)
@@ -41,7 +42,7 @@ def update_by_id(_id: int, item: ProjectUpdateSchema):
     :return:
     """
     project = crud.updata_by_id(_id, item)
-    return project
+    return R.ok(data=project)
 
 
 @router.delete('/project/{id}', response_model=ProjectSelectSchema)
@@ -51,5 +52,5 @@ def remove_by_id(_id: int):
     :param _id: 更新数据的id
     :return:
     """
-    peoject = crud.remove_by_id(_id)
-    return peoject
+    project = crud.remove_by_id(_id)
+    return R.ok(data=project)
