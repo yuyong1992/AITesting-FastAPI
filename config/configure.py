@@ -2,6 +2,7 @@
 # Created by YUYONG on 2022/10/19
 import configparser
 import threading
+import os
 
 
 class Configure:
@@ -9,7 +10,7 @@ class Configure:
     # 创建一个线程锁对象
     __instance_lock = threading.Lock()
     __flag = False
-    __config_file = r'D:\File\Code\Python\AITesting-FastAPI\config\config.ini'
+    __config_file = os.path.abspath(os.path.dirname(__file__)) + '/config.ini'
 
     def __new__(cls, *args, **kwargs):
         if not hasattr(cls, '_instance'):

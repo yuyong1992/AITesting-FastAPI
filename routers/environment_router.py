@@ -15,7 +15,7 @@ def get_by_id(_id: int):
     return environment
 
 
-@router.get('/environment', response_model=list[EnvironmentSelectSchema])
+@router.get('/environment', response_model=EnvironmentSelectSchema)
 def get_by_project_id(_id: int):
     """
     根据project_id查询environment列表
