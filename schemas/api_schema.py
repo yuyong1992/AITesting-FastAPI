@@ -37,7 +37,3 @@ class APICreateSchema(APISchema):
 
 class APIUpdateSchema(APISchema):
     pass
-
-
-class APIRemoveSchema(APISchema):
-    pass

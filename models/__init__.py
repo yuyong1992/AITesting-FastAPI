@@ -66,7 +66,13 @@ class TestReport(Base):
     __tablename__ = 'hc_test_report'
     id = Column(Integer, primary_key=True, autoincrement='auto')
     name = Column(String, nullable=False)
-    type = Column(Boolean, nullable=False)
-    status = Column(Boolean, nullable=False)
+    type = Column(Boolean)
+    status = Column(Boolean)
     project_id = Column(Integer, ForeignKey('hc_project.id'))
     create_user_id = Column(Integer, ForeignKey('hc_user.id'))
+
+
+class TestCase(Base):
+    __tablename__ = 'hc_test_case'
+    id = Column(Integer, primary_key=True, autoincrement='auto')
+    name = Column(String, nullable=False)

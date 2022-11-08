@@ -25,7 +25,3 @@ class TestLogCreateSchema(TestLogSchema):
 
 class TestLogUpdateSchema(TestLogSchema):
     pass
-
-
-class TestLogResponseSchema(TestLogSchema):
-    pass
