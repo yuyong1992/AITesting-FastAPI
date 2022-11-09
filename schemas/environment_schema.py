@@ -5,6 +5,8 @@ from typing import Dict
 
 from pydantic import BaseModel
 
+from schemas import BaseOutputSchema
+
 
 class EnvironmentSchema(BaseModel):
     name: str = None
@@ -30,3 +32,11 @@ class EnvironmentUpdateSchema(EnvironmentSchema):
 
 class EnvironmentCreateSchema(EnvironmentSchema):
     pass
+
+
+class EnvironmentOutputSchema(BaseOutputSchema):
+    data: EnvironmentSelectSchema
+
+
+class EnvironmentListOutputSchema(BaseOutputSchema):
+    data: list[EnvironmentSelectSchema]

@@ -4,6 +4,8 @@ from datetime import datetime
 
 from pydantic import BaseModel
 
+from schemas import BaseOutputSchema
+
 
 class ProjectSchema(BaseModel):
     name: str = None
@@ -27,3 +29,11 @@ class ProjectUpdateSchema(ProjectSchema):
 
 class ProjectCreateSchema(ProjectSchema):
     pass
+
+
+class ProjectOutputSchema(BaseOutputSchema):
+    data: ProjectSchema
+
+
+class ProjectListOutputSchema(BaseOutputSchema):
+    data: list[ProjectSelectSchema]
