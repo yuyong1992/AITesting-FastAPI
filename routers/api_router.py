@@ -9,7 +9,7 @@ from common.r import R
 router = APIRouter(tags=['api'])
 
 
-@router.get('/api/{id}', response_model=APISelectSchema)
+@router.get('/api/{_id}', response_model=APISelectSchema)
 def get_by_id(_id: int):
     api = crud.get_by_id(_id=_id)
     return R.ok(data=api)
@@ -21,13 +21,13 @@ def save(item: APICreateSchema):
     return R.ok(data=api)
 
 
-@router.put('/api/{id}', response_model=APISelectSchema)
+@router.put('/api/{_id}', response_model=APISelectSchema)
 def update_by_id(_id: int, item: APIUpdateSchema):
     api = crud.update_by_id(_id=_id, schema_in=item)
     return R.ok(data=api)
 
 
-@router.delete('/api/{id}', response_model=APISelectSchema)
+@router.delete('/api/{_id}', response_model=APISelectSchema)
 def remove(_id: int):
     api = crud.remove_by_id(_id=_id)
     return R.ok(data=api)

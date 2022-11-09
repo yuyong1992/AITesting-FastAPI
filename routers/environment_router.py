@@ -9,7 +9,7 @@ from crud.crud_environment import environment as crud
 router = APIRouter(tags=['environment'])
 
 
-@router.get('/environment/{id}', response_model=EnvironmentSelectSchema)
+@router.get('/environment/{_id}', response_model=EnvironmentSelectSchema)
 def get_by_id(_id: int):
     environment = crud.get_by_id(_id=_id)
     return R.ok(data=environment)
@@ -33,13 +33,13 @@ def save(item: EnvironmentCreateSchema):
     return R.ok(data=environment)
 
 
-@router.put('/environment/{id}', response_model=EnvironmentSelectSchema)
+@router.put('/environment/{_id}', response_model=EnvironmentSelectSchema)
 def update(_id: int, item: EnvironmentUpdateSchema):
     environment = crud.update_by_id(_id=_id, schema_in=item)
     return R.ok(data=environment)
 
 
-@router.delete('/environment/{id}', response_model=EnvironmentSelectSchema)
+@router.delete('/environment/{_id}', response_model=EnvironmentSelectSchema)
 def remove_by_id(_id):
     environment = crud.remove_by_id(_id=_id)
     return R.ok(data=environment)

@@ -11,7 +11,7 @@ router = APIRouter(tags=['project'])
 
 
 # 完成对项目管理表的增删改查
-@router.get('/project/{id}', response_model=ProjectSelectSchema)
+@router.get('/project/{_id}', response_model=ProjectSelectSchema)
 def get_by_id(_id: int):
     """
     根据id获取项目数据
@@ -19,6 +19,8 @@ def get_by_id(_id: int):
     :return: ProjectSelectSchema 格式的数据
     """
     project = crud.get_by_id(_id)
+    if project is None:
+        return R.ok(message='Not found')
     return R.ok(data=project)
 
 
@@ -33,7 +35,7 @@ def save(item: ProjectCreateSchema):
     return R.ok(data=project)
 
 
-@router.put('/project/{id}', response_model=ProjectSelectSchema)
+@router.put('/project/{_id}', response_model=ProjectSelectSchema)
 def update_by_id(_id: int, item: ProjectUpdateSchema):
     """
     更新数据
@@ -45,7 +47,7 @@ def update_by_id(_id: int, item: ProjectUpdateSchema):
     return R.ok(data=project)
 
 
-@router.delete('/project/{id}', response_model=ProjectSelectSchema)
+@router.delete('/project/{_id}', response_model=ProjectSelectSchema)
 def remove_by_id(_id: int):
     """
     根据id删除数据

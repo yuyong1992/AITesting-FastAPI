@@ -10,7 +10,7 @@ from common.r import R
 router = APIRouter(tags=['group'])
 
 
-@router.get('/group/{id}', response_model=GroupSelectSchema)
+@router.get('/group/{_id}', response_model=GroupSelectSchema)
 def get_by_id(_id: int):
     group = crud.get_by_id(_id=_id)
     return R.ok(data=group)
@@ -22,13 +22,13 @@ def save(item: GroupCreateSchema):
     return R.ok(data=group)
 
 
-@router.put('/group/{id}', response_model=GroupSelectSchema)
+@router.put('/group/{_id}', response_model=GroupSelectSchema)
 def update(_id: int, item: GroupUpdateSchema):
     group = crud.update_by_id(_id=_id, schema_in=item)
     return R.ok(data=group)
 
 
-@router.delete('/group/{id}', response_model=GroupSelectSchema)
+@router.delete('/group/{_id}', response_model=GroupSelectSchema)
 def remove(_id: int):
     group = crud.remove_by_id(_id=_id)
     return R.ok(data=group)

@@ -9,7 +9,7 @@ from crud.crud_testcase import testcase as crud
 router = APIRouter(tags=['testcase'])
 
 
-@router.get('/testcase/{id}', response_model=TestcaseSelectSchema)
+@router.get('/testcase/{_id}', response_model=TestcaseSelectSchema)
 def get_by_id(_id: int):
     testcase = crud.get_by_id(_id=_id)
     return R.ok(data=testcase)
@@ -21,13 +21,13 @@ def save(item: TestcaseCreateSchema):
     return R.ok(data=testcase)
 
 
-@router.put('/testcase/{id}', response_model=TestcaseSelectSchema)
+@router.put('/testcase/{_id}', response_model=TestcaseSelectSchema)
 def update_by_id(_id: int, item: TestcaseUpdateSchema):
     testcase = crud.update_by_id(_id=_id, schema_in=item)
     return R.ok(data=testcase)
 
 
-@router.delete('/testcase/{id}', response_model=TestcaseSelectSchema)
+@router.delete('/testcase/{_id}', response_model=TestcaseSelectSchema)
 def remove_by_id(_id: int):
     testcase = crud.remove_by_id(_id=_id)
     return R.ok(data=testcase)
