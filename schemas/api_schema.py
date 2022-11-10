@@ -4,6 +4,8 @@ from datetime import datetime
 
 from pydantic import BaseModel, Json
 
+from schemas import BaseOutputSchema
+
 
 class APISchema(BaseModel):
     name: str = None
@@ -37,3 +39,7 @@ class APICreateSchema(APISchema):
 
 class APIUpdateSchema(APISchema):
     pass
+
+
+class APIOutputSchema(BaseOutputSchema):
+    data: APISelectSchema

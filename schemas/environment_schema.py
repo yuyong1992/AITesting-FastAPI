@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Created by YUYONG on 2022/10/25
 from datetime import datetime
-from typing import Dict
+from typing import Dict, List
 
 from pydantic import BaseModel
 
@@ -39,4 +39,5 @@ class EnvironmentOutputSchema(BaseOutputSchema):
 
 
 class EnvironmentListOutputSchema(BaseOutputSchema):
-    data: list[EnvironmentSelectSchema]
+    # List 在python 3.9版本后可以直接使用内置的list类型
+    data: List[EnvironmentSelectSchema]

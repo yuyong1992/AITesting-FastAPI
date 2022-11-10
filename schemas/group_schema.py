@@ -3,6 +3,8 @@
 from datetime import datetime
 from pydantic import BaseModel
 
+from schemas import BaseOutputSchema
+
 
 class GroupSchema(BaseModel):
     name: str = None
@@ -25,3 +27,7 @@ class GroupCreateSchema(GroupSchema):
 
 class GroupUpdateSchema(GroupSchema):
     pass
+
+
+class GroupOutputSchema(BaseOutputSchema):
+    data: GroupSelectSchema

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # Created by YUYONG on 2022/10/25
 from datetime import datetime
+from typing import List
 
 from pydantic import BaseModel
 
@@ -36,4 +37,4 @@ class ProjectOutputSchema(BaseOutputSchema):
 
 
 class ProjectListOutputSchema(BaseOutputSchema):
-    data: list[ProjectSelectSchema]
+    data: List[ProjectSelectSchema]

@@ -4,6 +4,8 @@ from datetime import datetime
 
 from pydantic import BaseModel
 
+from schemas import BaseOutputSchema
+
 
 class TestUserSchema(BaseModel):
     username: str
@@ -13,16 +15,23 @@ class TestUserSchema(BaseModel):
     mobile: str
     status: bool
 
+    class Config:
+        orm_mode = True
 
-class TestUserSelectSchema(BaseModel):
+
+class TestUserSelectSchema(TestUserSchema):
     id: int
     create_time: datetime
     update_time: datetime
 
 
-class TestUserCreateSchema(BaseModel):
+class TestUserCreateSchema(TestUserSchema):
     pass
 
 
-class TestUserUpdateSchema(BaseModel):
+class TestUserUpdateSchema(TestUserSchema):
     pass
+
+
+class TestUserOutputSchema(BaseOutputSchema):
+    data: TestUserSelectSchema

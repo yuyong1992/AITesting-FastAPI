@@ -3,32 +3,32 @@
 
 from fastapi import APIRouter
 
-from schemas.group_schema import GroupSelectSchema, GroupCreateSchema, GroupUpdateSchema
+from schemas.group_schema import GroupSelectSchema, GroupCreateSchema, GroupUpdateSchema, GroupOutputSchema
 from crud.crud_group import group as crud
 from common.r import R
 
 router = APIRouter(tags=['group'])
 
 
-@router.get('/group/{_id}', response_model=GroupSelectSchema)
+@router.get('/group/{_id}', response_model=GroupOutputSchema)
 def get_by_id(_id: int):
     group = crud.get_by_id(_id=_id)
     return R.ok(data=group)
 
 
-@router.post('/group', response_model=GroupSelectSchema)
+@router.post('/group', response_model=GroupOutputSchema)
 def save(item: GroupCreateSchema):
     group = crud.save(schema_in=item)
     return R.ok(data=group)
 
 
-@router.put('/group/{_id}', response_model=GroupSelectSchema)
+@router.put('/group/{_id}', response_model=GroupOutputSchema)
 def update(_id: int, item: GroupUpdateSchema):
     group = crud.update_by_id(_id=_id, schema_in=item)
     return R.ok(data=group)
 
 
-@router.delete('/group/{_id}', response_model=GroupSelectSchema)
+@router.delete('/group/{_id}', response_model=GroupOutputSchema)
 def remove(_id: int):
     group = crud.remove_by_id(_id=_id)
     return R.ok(data=group)

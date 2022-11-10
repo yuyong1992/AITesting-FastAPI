@@ -4,6 +4,8 @@ from datetime import datetime
 
 from pydantic import BaseModel
 
+from schemas import BaseOutputSchema
+
 
 class TestcaseSchema(BaseModel):
     name: str
@@ -14,16 +16,23 @@ class TestcaseSchema(BaseModel):
     steps: str
     group_id: int
 
+    class Config:
+        orm_mode = True
 
-class TestcaseSelectSchema(BaseModel):
+
+class TestcaseSelectSchema(TestcaseSchema):
     id: int
     create_time: datetime
     update_time: datetime
 
 
-class TestcaseCreateSchema(BaseModel):
+class TestcaseCreateSchema(TestcaseSchema):
     pass
 
 
-class TestcaseUpdateSchema(BaseModel):
+class TestcaseUpdateSchema(TestcaseSchema):
     pass
+
+
+class TestcaseOutputSchema(BaseOutputSchema):
+    data: TestcaseSelectSchema
