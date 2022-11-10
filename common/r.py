@@ -29,3 +29,9 @@ class MyException404(Exception):
     def __init__(self, code=404, message='资源不存在'):
         self.code = code
         self.message = message
+
+
+class MyException500(Exception):
+    def __init__(self, code=500, message='系统异常'):
+        self.code = code
+        self.message = message

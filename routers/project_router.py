@@ -10,7 +10,6 @@ from common.r import R, MyException404
 router = APIRouter(tags=['project'])
 
 
-# 完成对项目管理表的增删改查
 @router.get('/project/{_id}', response_model=ProjectOutputSchema)
 def get_by_id(_id: int):
     """
@@ -34,6 +33,8 @@ def save(item: ProjectCreateSchema):
     :return:
     """
     project = crud.save(item)
+    if project is None:
+        raise MyException404()
     return R.ok(data=project)
 
 
@@ -46,6 +47,8 @@ def update_by_id(_id: int, item: ProjectUpdateSchema):
     :return:
     """
     project = crud.update_by_id(_id, item)
+    if project is None:
+        raise MyException404()
     return R.ok(data=project)
 
 
@@ -57,4 +60,6 @@ def remove_by_id(_id: int):
     :return:
     """
     project = crud.remove_by_id(_id)
+    if project is None:
+        raise MyException404()
     return R.ok(data=project)
