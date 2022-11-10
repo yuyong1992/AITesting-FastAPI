@@ -3,13 +3,14 @@
 from fastapi import APIRouter
 
 from common.r import R, MyException404
-from schemas.testcase_schema import TestcaseSelectSchema, TestcaseCreateSchema, TestcaseUpdateSchema
+from schemas.testcase_schema import TestcaseSelectSchema, TestcaseCreateSchema, TestcaseUpdateSchema, \
+    TestcaseOutputSchema
 from crud.crud_testcase import testcase as crud
 
 router = APIRouter(tags=['testcase'])
 
 
-@router.get('/testcase/{_id}', response_model=TestcaseSelectSchema)
+@router.get('/testcase/{_id}', response_model=TestcaseOutputSchema)
 def get_by_id(_id: int):
     testcase = crud.get_by_id(_id=_id)
     if testcase is None:
@@ -17,7 +18,7 @@ def get_by_id(_id: int):
     return R.ok(data=testcase)
 
 
-@router.post('/testcase', response_model=TestcaseSelectSchema)
+@router.post('/testcase', response_model=TestcaseOutputSchema)
 def save(item: TestcaseCreateSchema):
     testcase = crud.save(schema_in=item)
     if testcase is None:
@@ -25,7 +26,7 @@ def save(item: TestcaseCreateSchema):
     return R.ok(data=testcase)
 
 
-@router.put('/testcase/{_id}', response_model=TestcaseSelectSchema)
+@router.put('/testcase/{_id}', response_model=TestcaseOutputSchema)
 def update_by_id(_id: int, item: TestcaseUpdateSchema):
     testcase = crud.update_by_id(_id=_id, schema_in=item)
     if testcase is None:
@@ -33,7 +34,7 @@ def update_by_id(_id: int, item: TestcaseUpdateSchema):
     return R.ok(data=testcase)
 
 
-@router.delete('/testcase/{_id}', response_model=TestcaseSelectSchema)
+@router.delete('/testcase/{_id}', response_model=TestcaseOutputSchema)
 def remove_by_id(_id: int):
     testcase = crud.remove_by_id(_id=_id)
     if testcase is None:
