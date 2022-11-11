@@ -45,14 +45,15 @@ class CRUDBase:
         if exact_match:
             condition = {k: v for k, v in kwargs.items() if v}
             with SessionLocal() as session:
-                return session.query(self.model).filter(and_(**condition)).all()
+                return session.query(self.model).filter_by(**condition).all()
         else:
             condition_list_str = [f'self.model.{k}.like("%{v}%")' for k, v in kwargs.items() if v]
             condition_list = []
             for item in condition_list_str:
                 condition_list.append(eval(item))
             with SessionLocal() as session:
-                return session.query(self.model).filter_by(and_(*condition_list)).all()
+                return session.query(self.model).filter(and_(*condition_list)).all()
+        # TODO: 按条件查询结果分页
 
     def list_by_dict_condition_or(self, exact_match=False, **kwargs):
         """
@@ -64,7 +65,7 @@ class CRUDBase:
         if exact_match:
             condition = {k: v for k, v in kwargs.items() if v}
             with SessionLocal() as session:
-                return session.query(self.model).filter(or_(**condition)).all()
+                return session.query(self.model).filter_by(**condition).all()
         else:
             condition_list_str = [f'self.model.{k}.like("%v%")' for k, v in kwargs.items() if v]
             condition_list = []
