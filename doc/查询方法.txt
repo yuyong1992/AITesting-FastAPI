@@ -53,3 +53,17 @@ from sqlalchemy import distinct
 
 # count distinct "name" values
 session.query(func.count(distinct(User.name)))
+
+# 分页
+page_one：当前页码， page_size：每页显示的记录数量    offset：偏移量         limit：限制条数
+   1                    2                                 0                      2
+   2                    2                                 2                      2
+   3                    2                                 4                      2
+
+根据 page_one 和 page_size 与 offset 的数字关系，可以发现： offset = page_size * (page_one - 1)
+# # offset：偏移量，limit：数据条数限制
+# # # 偏移量为2，每页展示2条数据；即从第3条数据开始展示，展示3,4（本案例中只有5条数据）
+# # budget_test_data = session.query(BudgetStatic).offset(2).limit(2)
+# offset_data= page_size *( page_one - 1 )
+# budget_test_data = session.query(BudgetStatic).offset(offset_data).limit(page_size)
+

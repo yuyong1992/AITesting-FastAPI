@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 # Created by YUYONG on 2022/10/25
+
 from fastapi.encoders import jsonable_encoder
-from sqlalchemy import text
+from sqlalchemy import text, and_, or_
 
 from db import SessionLocal
 
@@ -10,9 +11,9 @@ class CRUDBase:
     def __init__(self, model):
         """
         初始化需要操作的数据库表模型
-        :param model: 表模型
+        :param model: 当前操作的表模型
         """
-        self.__model = model
+        self.model = model
 
     def get_by_id(self, _id: int):
         """
@@ -23,7 +24,7 @@ class CRUDBase:
         # s: Session = SessionLocal()
         # s.query(self.__model).filter(self.__model.id == _id).first()
         with SessionLocal() as session:
-            return session.query(self.__model).filter(self.__model.id == _id).first()
+            return session.query(self.model).filter(self.model.id == _id).first()
 
     def list_by_condition(self, condition):
         """
@@ -32,23 +33,63 @@ class CRUDBase:
         :return:
         """
         with SessionLocal() as session:
-            return session.query(self.__model).filter(text(condition)).all()
+            return session.query(self.model).filter(text(condition)).all()
 
-    def page(self, skip: int = 0, limit: int = 100):
+    def list_by_dict_condition_and(self, exact_match=False, **kwargs):
+        """
+        字典格式的多条件参数查询，条件之间是并的关系
+        :param exact_match: 是否精确匹配
+        :param kwargs: 查询条件的字典
+        :return: 查询资源的列表
+        """
+        if exact_match:
+            condition = {k: v for k, v in kwargs.items() if v}
+            with SessionLocal() as session:
+                return session.query(self.model).filter(and_(**condition)).all()
+        else:
+            condition_list_str = [f'self.model.{k}.like("%{v}%")' for k, v in kwargs.items() if v]
+            condition_list = []
+            for item in condition_list_str:
+                condition_list.append(eval(item))
+            with SessionLocal() as session:
+                return session.query(self.model).filter_by(and_(*condition_list)).all()
+
+    def list_by_dict_condition_or(self, exact_match=False, **kwargs):
+        """
+        字典格式的多条件参数查询，条件之间是或的关系
+        :param exact_match: 是否精确匹配
+        :param kwargs: 查询条件的字典
+        :return: 查询资源的列表
+        """
+        if exact_match:
+            condition = {k: v for k, v in kwargs.items() if v}
+            with SessionLocal() as session:
+                return session.query(self.model).filter(or_(**condition)).all()
+        else:
+            condition_list_str = [f'self.model.{k}.like("%v%")' for k, v in kwargs.items() if v]
+            condition_list = []
+            for item in condition_list_str:
+                condition_list.append(item)
+            with SessionLocal() as session:
+                return session.query(self.model).filter_by(or_(*condition_list)).all()
+
+    def page(self, page_num: int = 0, page_size: int = 100):
         """
         无查询条件分页查询
-        :param skip:
-        :param limit:
-        :return:
+        :param page_num: 前端要展示的当前页码
+        :param page_size: 前端每页展示的数据
+        :return: 分页的资源列表
         """
+        offset = page_num - 1
+        limit = page_size
         with SessionLocal() as session:
-            return session.query(self.__model).offset(skip).limit(limit).all()
+            return session.query(self.model).offset(offset).limit(limit).all()
 
     def save(self, schema_in):
         # 做兼容性类型转换
         schema_in_data = jsonable_encoder(schema_in)
         # 将schema_in_data转换成数据库模型对象
-        db_obj = self.__model(**schema_in_data)
+        db_obj = self.model(**schema_in_data)
         with SessionLocal() as session:
             session.add(db_obj)
             session.commit()
@@ -81,7 +122,7 @@ class CRUDBase:
 
     def remove_by_id(self, _id):
         with SessionLocal() as session:
-            db_obj = session.query(self.__model).get(_id)
+            db_obj = session.query(self.model).get(_id)
             session.delete(db_obj)
             session.commit()
             return db_obj

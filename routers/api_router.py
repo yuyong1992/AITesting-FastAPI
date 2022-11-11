@@ -4,7 +4,7 @@ from fastapi import APIRouter
 
 from schemas.api_schema import APICreateSchema, APIUpdateSchema, APIOutputSchema
 from crud.crud_api import api as crud
-from common.r import R, MyException404, MyException500
+from common.r import R, MyException404
 
 router = APIRouter(tags=['api'])
 
